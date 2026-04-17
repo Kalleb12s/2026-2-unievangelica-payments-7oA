@@ -30,32 +30,33 @@ def test_aplicar_juros_atraso():
     # Assert
     # TODO: Corrigir o erro matemático abaixo (Juros simples de 1% ao dia)
     # 100 + (100 * 0.01 * 5) deveria ser 105.0, não 150.0
-    assert resultado_com_atraso == 150.0   # BUG INTENCIONAL
+    assert resultado_com_atraso == 105.0   # BUG INTENCIONAL
     assert resultado_sem_atraso == 100.0
 
 def test_validar_metodo_pagamento():
-    """
-    MISSÃO: Implementar testes para validar_metodo_pagamento.
-    Use a estrutura AAA (Arrange, Act, Assert).
-    Dica: Teste pelo menos um método aceito (ex: 'pix') e um rejeitado (ex: 'cheque').
-    """
     # Arrange
+    metodo_valido = "PIX"
+    metodo_invalido = "CHEQUE"
     
     # Act
+    resultado_valido = validar_metodo_pagamento(metodo_valido)
+    resultado_invalido = validar_metodo_pagamento(metodo_invalido)
     
     # Assert
-    pass
+    assert resultado_valido is True
+    assert resultado_invalido is False
 
 def test_processar_reembolso():
-    """
-    MISSÃO: Implementar testes para processar_reembolso.
-    Use a estrutura AAA (Arrange, Act, Assert).
-    Dica: Teste o cenário de reembolso válido e o cenário de erro (-1).
-    BÔNUS: Teste o valor limite (reembolso == valor_pago).
-    """
     # Arrange
+    valor_pago = 200.0
+    valor_limite_exato = 200.0  # Caso de Valor Limite
+    valor_estouro = 201.0       # Caso de Valor Limite
     
     # Act
+    resultado_limite = processar_reembolso(valor_pago, valor_limite_exato)
+    resultado_estouro = processar_reembolso(valor_pago, valor_estouro)
     
     # Assert
-    pass
+    assert resultado_limite == 0.0  # // Caso de Valor Limite
+    
+    assert resultado_estouro == -1  # // Caso de Valor Limite
